@@ -18,36 +18,51 @@ const coinsAPI = {
 
 const Card = ({ coin }) => {
     const [buttonSelected, setSelected] = useState(0)
-    const [prices, setPrices] = useState()
-    const [currentPrice, setCurrentPrice] = useState("loading")
-    const [priceChange, setPriceChange] = useState()
-    const [percentChange, setPercentChange] = useState()
+    const [isloaded, setIsLoaded] = useState(false)
+    const [prices, setPrices] = useState(0)
+    const [currentPrice, setCurrentPrice] = useState(0)
+    const [priceChange, setPriceChange] = useState(0)
+    const [percentChange, setPercentChange] = useState(0)
+
+    async function fetchData() {
+        try {
+            const response = await axios.get(coinsAPI[coin]);
+            const data = await response.data;
+            await setPrices(data.prices)
+            showData()
+            setIsLoaded(true)
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    function showData() {
+        try {
+            setCurrentPrice(prices[prices.length - 1][1]);
+            if (buttonSelected === 0) {
+                setPriceChange((currentPrice - prices[prices.length - 2][1]).toFixed(4));
+            } else if (buttonSelected === 1) {
+                setPriceChange((currentPrice - prices[prices.length - 25][1]).toFixed(4));
+            } else {
+                setPriceChange((currentPrice - prices[0][1]).toFixed(4));
+            }
+            setPercentChange((priceChange / (currentPrice - priceChange) * 100).toFixed(4))
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     useEffect(() => {
-        console.log('get data')
-        axios.get(coinsAPI[coin])
-            .then(response => {
+        console.log('get data');
+        fetchData();
+    }, []);
 
-                const data = response.data;
-                const prices = data.prices;
-                setCurrentPrice(prices[prices.length - 1][1]);
+    useEffect(() => {
+        showData()
 
-                if (buttonSelected === 0) {
-                    setPriceChange(currentPrice - prices[prices.length - 2][1]);
-                }
-                else if (buttonSelected === 1) {
-                    setPriceChange(currentPrice - prices[prices.length - 24][1]);
-                }
-                else {
-                    setPriceChange(currentPrice - prices[0][1]);
-                }
+    }, [buttonSelected, isloaded])
 
-                setPercentChange(priceChange / (currentPrice + priceChange) * 100);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }, [buttonSelected]);
 
     return (
         <View style={styles.card}>
