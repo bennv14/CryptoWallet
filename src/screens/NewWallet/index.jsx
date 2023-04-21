@@ -6,6 +6,7 @@ import globalStyles from '../../../style.global';
 import { newWallet, unlockWallet } from '../../main/wallet';
 
 function NewWallet({ navigation }) {
+  const [password, setPassword] = useState();
   const createWallet = () => {
     try {
       navigation.navigate('HomeScreen');

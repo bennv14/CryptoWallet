@@ -20,7 +20,6 @@ function ExchangeScreen({ navigation }) {
                 <View style={styles.body}>
                     <View >
                         <View style={styles.head}>
-                            <Image source={require('../../../assets/backIcon.png')} />
                             <Text style={styles.pageTitle}>Trao đổi</Text>
                         </View>
                         <View style={styles.information}>
@@ -29,8 +28,8 @@ function ExchangeScreen({ navigation }) {
                                     color: '#FFFFFF',
                                     fontSize: 18,
                                     fontWeight: 400,
-                                }}> Available balance</Text>
-                            <Text style={styles.money}>$6,500</Text>
+                                }}> Số dư tài khoản</Text>
+                            <Text style={styles.money}>value coin</Text>
                         </View>
                         <View style={styles.body}>
                             <ExchangeCard />
@@ -72,8 +71,10 @@ const styles = StyleSheet.create({
     head: {
         justifyContent: 'flex-start',
         width: windowWidth - 80,
-        margin: 70,
-        flexDirection: 'row'
+        marginTop: 70,
+        marginBottom: 50,
+        flexDirection: 'row',
+        alignSelf: 'center',
     },
 
 
@@ -83,7 +84,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 20,
         fontWeight: 600,
-        marginLeft: -12,
+        alignItems: 'center',
+        alignSelf: 'center',
     },
 
     information: {

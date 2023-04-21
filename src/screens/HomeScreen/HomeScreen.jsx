@@ -16,9 +16,6 @@ const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
 const listCoins = ['Bitcoin', 'Ethereum']
-const listButton = ['30m', '1h', '1d']
-
-
 
 function HomeScreen({ navigation }) {
 
@@ -99,7 +96,7 @@ function HomeScreen({ navigation }) {
                         <View style={styles.cardView}>
                             <FlatList data={listCoins}
                                 renderItem={({ item }) => (
-                                    <Card setCoin={item} />
+                                    <Card coin={item} />
                                 )}
                                 horizontal
                                 pagingEnabled
@@ -148,25 +145,25 @@ const styles = StyleSheet.create({
     },
 
     nameAccount: {
-        fontSize: 25,
+        fontSize: 24,
         textAlign: 'center',
-        marginTop: 140,
+        marginTop: 80,
         color: '#fff',
     },
 
     money: {
-        fontSize: 40,
+        fontSize: 38,
         fontWeight: 600,
         textAlign: 'center',
         color: '#FFCDEA',
     },
 
     funtion: {
+        alignSelf: 'center',
         flexDirection: 'row',
         flex: 1,
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginHorizontal: 50,
         width: 160,
     },
 

@@ -19,7 +19,7 @@ const windowHeight = Dimensions.get('window').height
 
 const ExchangeCard = () => {
 
-    const coinList = ['BTC', 'ETH', 'ABC']
+    const coinList = ['BTC', 'ETH']
     const [coinSelected, setCoinSelected] = useState(coinList[0])
     const [coinListOpen, setCoinListOpen] = useState(false)
 
@@ -104,13 +104,16 @@ const ExchangeCard = () => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 80,
-        margin: 28,
+        marginTop: 30,
         alignItems: 'center',
         backgroundColor: '#1c1933',
-        height: windowHeight / 2.5,
+        height: windowHeight / 2.3,
         width: windowWidth - 28 * 2,
         borderRadius: 25,
+    },
+
+    body: {
+        flex: 1,
     },
 
     input: {
@@ -124,7 +127,7 @@ const styles = StyleSheet.create({
     },
 
     textField: {
-        marginTop: 20,
+        marginTop: 15,
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
@@ -136,7 +139,7 @@ const styles = StyleSheet.create({
     },
 
     containerButton: {
-        marginTop: 30,
+        marginTop: 15,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -151,7 +154,7 @@ const styles = StyleSheet.create({
     },
 
     exchangeText: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 600,
         color: '#FFFFFF',
     }
