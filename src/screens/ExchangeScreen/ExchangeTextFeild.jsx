@@ -8,7 +8,7 @@ import {
     TextInput
 } from 'react-native'
 
-const ExchangeTextFeild = ({ value, showList, setShowList, style, placeholder, editable }) => {
+const ExchangeTextFeild = ({ title, showList, setShowList, style, placeholder, editable, textShow, getValue }) => {
     return (
         <View style={[styles.container, style]}>
             <View style={styles.button}>
@@ -24,7 +24,7 @@ const ExchangeTextFeild = ({ value, showList, setShowList, style, placeholder, e
                             marginRight: 4,
                             fontSize: 14,
                         }}>
-                        {value}
+                        {title}
                     </Text>
 
                     <Image
@@ -41,7 +41,11 @@ const ExchangeTextFeild = ({ value, showList, setShowList, style, placeholder, e
                 style={styles.text}
                 placeholder={placeholder}
                 editable={editable}
-                placeholderTextColor={'#867890'}>
+                placeholderTextColor={'#867890'}
+                value={textShow}
+                onChange={newText => {
+                    getValue(newText)
+                }}>
             </TextInput>
         </View >
     )
