@@ -16,7 +16,7 @@ import axios from 'axios'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 const API = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cethereum&vs_currencies=usd%2Ceur%2Cvnd&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false&precision=4'
-
+const DICT = { BTC: 'bitcoin', ETH: 'ethereum', USD: 'usd', EUR: 'eur', VND: 'vnd' }
 
 const ExchangeCard = () => {
 
@@ -34,18 +34,19 @@ const ExchangeCard = () => {
     const [inputValue, setInputValue] = useState(0)
     const [exchangeValue, setExchangeValue] = useState(0)
 
-    const DICT = { BTC: 'bitcoin', ETH: 'ethereum', USD: 'usd', EUR: 'eur', VND: 'vnd' }
+    const [isBuy, setBuy] = useState(true)
 
     async function fetchData() {
         try {
-            const response = await axios.get(API);
+            console.log("fetch data")
+            const response = await axios.get(API)
+                .then();
             setPrices(response.data)
             setPriceExchange(prices[DICT[coinSelected]][DICT[currencySelected]])
         } catch (error) {
             console.log(error);
         }
     }
-
 
     useEffect(() => {
         fetchData()
@@ -57,10 +58,15 @@ const ExchangeCard = () => {
         } catch (error) {
             console.log(error)
         }
+    }, [coinSelected, currencySelected, prices])
+
+    useEffect(() => {
+        try {
+            setPriceExchange(prices[DICT[coinSelected]][DICT[currencySelected]])
+        } catch (error) {
+            console.log(error)
+        }
     }, [coinSelected, currencySelected])
-
-    const [isBuy, setBuy] = useState(true)
-
 
     return (
         <View style={styles.container}>
@@ -70,7 +76,9 @@ const ExchangeCard = () => {
             <View style={styles.body}>
                 <View style={styles.conversionRate}>
                     <Text style={{ color: '#CACACA', fontSize: 16, marginRight: 10 }}>1 {coinSelected} = {priceExchange} {currencySelected}</Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => {
+                        fetchData()
+                    }}>
                         <Image source={require('../../../assets/reload.png')} />
                     </TouchableOpacity>
                 </View>

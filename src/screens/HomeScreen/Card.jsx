@@ -19,38 +19,31 @@ const coinsAPI = {
 const Card = ({ coin }) => {
     const [buttonSelected, setSelected] = useState(0)
     const [isloaded, setIsLoaded] = useState(false)
-    const [prices, setPrices] = useState(0)
+    const [prices, setPrices] = useState([])
     const [currentPrice, setCurrentPrice] = useState(0)
     const [priceChange, setPriceChange] = useState(0)
     const [percentChange, setPercentChange] = useState(0)
 
     async function fetchData() {
-        try {
-            const response = await axios.get(coinsAPI[coin]);
-            const data = await response.data;
-            await setPrices(data.prices)
-            showData()
-            setIsLoaded(true)
+        fetch(coinsAPI[coin])
+            .then(response => response.json())
+            .then(result => result.prices)
+            .then(data => {
+                const length = data.length
+                setPrices([data[length - 1][1], data[length - 2][1], data[length - 25][1], data[0][1]])
 
-        } catch (error) {
-            console.log(error);
-        }
+                showData()
+            })
+            .catch(error => console.log('error', error));
     }
 
     function showData() {
-        try {
-            setCurrentPrice(prices[prices.length - 1][1]);
-            if (buttonSelected === 0) {
-                setPriceChange((currentPrice - prices[prices.length - 2][1]).toFixed(4));
-            } else if (buttonSelected === 1) {
-                setPriceChange((currentPrice - prices[prices.length - 25][1]).toFixed(4));
-            } else {
-                setPriceChange((currentPrice - prices[0][1]).toFixed(4));
-            }
-            setPercentChange((priceChange / (currentPrice - priceChange) * 100).toFixed(4))
-        } catch (error) {
-            console.log(error)
-        }
+        console.log('show')
+        console.log(prices)
+        setCurrentPrice(prices[0])
+        setPriceChange((currentPrice - prices[buttonSelected + 1]).toFixed(4))
+        setPercentChange((priceChange / (currentPrice - priceChange) * 100).toFixed(4))
+        console.log("end show")
     }
 
     useEffect(() => {
@@ -60,8 +53,7 @@ const Card = ({ coin }) => {
 
     useEffect(() => {
         showData()
-
-    }, [buttonSelected, isloaded])
+    })
 
 
     return (
