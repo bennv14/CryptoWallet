@@ -24,7 +24,7 @@ const Card = ({ coin }) => {
     const [priceChange, setPriceChange] = useState(0)
     const [percentChange, setPercentChange] = useState(0)
 
-    async function fetchData() {
+    fetchData = () => {
         fetch(coinsAPI[coin])
             .then(response => response.json())
             .then(result => result.prices)
@@ -37,7 +37,7 @@ const Card = ({ coin }) => {
             .catch(error => console.log('error', error));
     }
 
-    function showData() {
+    showData = () => {
         console.log('show')
         console.log(prices)
         setCurrentPrice(prices[0])
@@ -49,12 +49,11 @@ const Card = ({ coin }) => {
     useEffect(() => {
         console.log('get data');
         fetchData();
-    }, []);
+    }, [buttonSelected]);
 
     useEffect(() => {
         showData()
     })
-
 
     return (
         <View style={styles.card}>
