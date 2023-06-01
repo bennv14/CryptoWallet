@@ -7,6 +7,7 @@ import NavBar from '../../components/navbar';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 const windowWidth = Dimensions.get('window').width;
+const url = 'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=149&interval=daily'
 
 function Statistic({ navigation }) {
   const [open, setOpen] = useState(false);
@@ -24,80 +25,22 @@ function Statistic({ navigation }) {
       <View style={{ position: 'absolute' }}>
         <View style={{ flexDirection: 'row', marginTop: 76, left: 0, width: '60%', justifyContent: 'space-between' }}>
           <View>
-            <Icon.Button
-              name="chevron-thin-left"
-              size={25}
-              color={'#FF2CDF'}
-              backgroundColor={'#221F3A'}
-              onPress={() => {
-                navigation.navigate('WellCome');
-              }}
-            ></Icon.Button>
           </View>
           <Text style={{ color: 'white', fontSize: 20 }}>Thống Kê</Text>
         </View>
         <View style={{ alignItems: 'center' }}>
-          <Text style={{ color: 'white', width: '50%', marginTop: 20, textAlign: 'center' }}>Chọn loại tiền ảo và khoảng thời gian bạn muốn kiểm tra</Text>
         </View>
 
         {/* choose 2 coin */}
         <View style={{ flexDirection: 'row' }}>
-          <View>
-            <DropDownPicker
-              textStyle={{ color: 'white' }}
-              listItemLabelStyle={{ color: 'black' }}
-              style={styles.drop_down_styles}
-              open={open}
-              value={value}
-              items={items}
-              setOpen={setOpen}
-              setValue={setValue}
-              setItems={setItems}
-            />
-          </View>
-          <View>
-            <DropDownPicker
-              textStyle={{ color: 'white' }}
-              listItemLabelStyle={{ color: 'black' }}
-              style={styles.drop_down_styles}
-              open={open}
-              value={value}
-              items={items}
-              setOpen={setOpen}
-              setValue={setValue}
-              setItems={setItems}
-            />
-          </View>
+          
+          
         </View>
 
         {/* choose day begin and day end */}
         <View style={{ flexDirection: 'row' }}>
-          <View>
-            <DropDownPicker
-              textStyle={{ color: 'white' }}
-              listItemLabelStyle={{ color: 'black' }}
-              style={styles.drop_down_styles}
-              open={open}
-              value={value}
-              items={items}
-              setOpen={setOpen}
-              setValue={setValue}
-              setItems={setItems}
-            />
-          </View>
-          <View>
-            <DropDownPicker
-              textStyle={{ color: 'white' }}
-              listItemLabelStyle={{ color: 'black' }}
-              style={styles.drop_down_styles}
-              open={open}
-              value={value}
-              items={items}
-              setOpen={setOpen}
-              setValue={setValue}
-              setItems={setItems}
-            />
-          </View>
+          
+          
         </View>
 
         <View style={{ alignItems: 'center', justifyContent: 'center' }}>

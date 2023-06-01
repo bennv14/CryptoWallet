@@ -17,14 +17,14 @@ const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 const API = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cethereum&vs_currencies=usd%2Ceur%2Cvnd&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false&precision=4'
 const DICT = { BTC: 'bitcoin', ETH: 'ethereum', USD: 'usd', EUR: 'eur', VND: 'vnd' }
+const coinList = ['BTC', 'ETH']
+const currencyList = ['USD', 'EUR', 'VND']
 
 const ExchangeCard = () => {
 
-    const coinList = ['BTC', 'ETH']
     const [coinSelected, setCoinSelected] = useState(coinList[0])
     const [coinListOpen, setCoinListOpen] = useState(false)
 
-    const currencyList = ['USD', 'EUR', 'VND']
     const [currencySelected, setCurrencySelected] = useState(currencyList[0])
     const [currencyListOpen, setCurrencyListOpen] = useState(false)
 
@@ -55,18 +55,17 @@ const ExchangeCard = () => {
     useEffect(() => {
         try {
             setPriceExchange(prices[DICT[coinSelected]][DICT[currencySelected]])
+            setExchangeValue((inputValue*priceExchange).toFixed(4))
         } catch (error) {
             console.log(error)
         }
     }, [coinSelected, currencySelected, prices])
 
-    useEffect(() => {
-        try {
-            setPriceExchange(prices[DICT[coinSelected]][DICT[currencySelected]])
-        } catch (error) {
-            console.log(error)
-        }
-    }, [coinSelected, currencySelected])
+
+    const setValue = (value)=>{
+        setInputValue(value)
+    }
+
 
     return (
         <View style={styles.container}>
@@ -91,7 +90,7 @@ const ExchangeCard = () => {
                         setShowList={setCoinListOpen}
                         placeholder={'0.00-5000.00'}
                         editable={true}
-                        getValue={setInputValue} />
+                        getValue={setValue} />
 
                     <ExchangeTextFeild
                         style={{ marginTop: 30 }}
@@ -105,7 +104,8 @@ const ExchangeCard = () => {
                     <TouchableOpacity
                         style={styles.containerButton}
                         onPress={() => {
-                            setExchangeValue((inputValue * exchangeValue).toFixed(4))
+                            console.log(inputValue)
+                            setExchangeValue((inputValue*priceExchange).toFixed(4))
                         }}>
                         <LinearGradient
                             colors={['#FF2CDF', '#8020EF', '#0014FF']}

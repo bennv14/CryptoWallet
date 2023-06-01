@@ -13,6 +13,8 @@ const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
 function ExchangeScreen({ navigation }) {
+
+
     return (
         <View style={{ flex: 1, }}>
             <Image source={require('../../../assets/bgImg.png')} style={styles.imageBG} />

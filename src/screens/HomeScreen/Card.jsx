@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useReducer } from "react"
 import {
     View,
     Text,
@@ -18,26 +18,25 @@ const coinsAPI = {
 
 const Card = ({ coin }) => {
     const [buttonSelected, setSelected] = useState(0)
-    const [isloaded, setIsLoaded] = useState(false)
     const [prices, setPrices] = useState([])
     const [currentPrice, setCurrentPrice] = useState(0)
     const [priceChange, setPriceChange] = useState(0)
     const [percentChange, setPercentChange] = useState(0)
+    const [isGetValue, setIsGet] = useState(false)
 
-    fetchData = () => {
+    const fetchData = () => {
         fetch(coinsAPI[coin])
             .then(response => response.json())
             .then(result => result.prices)
             .then(data => {
                 const length = data.length
                 setPrices([data[length - 1][1], data[length - 2][1], data[length - 25][1], data[0][1]])
-
-                showData()
+                setIsGet(true)
             })
             .catch(error => console.log('error', error));
     }
 
-    showData = () => {
+    const showData = () => {
         console.log('show')
         console.log(prices)
         setCurrentPrice(prices[0])
@@ -54,6 +53,10 @@ const Card = ({ coin }) => {
     useEffect(() => {
         showData()
     })
+
+    useEffect(() => {
+        showData()
+    },[isGetValue])
 
     return (
         <View style={styles.card}>

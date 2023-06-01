@@ -43,7 +43,7 @@ const ExchangeTextFeild = ({ title, showList, setShowList, style, placeholder, e
                 editable={editable}
                 placeholderTextColor={'#867890'}
                 value={textShow}
-                onChange={newText => {
+                onChangeText={newText => {
                     getValue(newText)
                 }}>
             </TextInput>
